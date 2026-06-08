@@ -8,7 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Konfiguracja bazy danych
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// --- KONFIGURACJA CORS ---
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 // --- KONFIGURACJA JWT ---
 var jwtKey = builder.Configuration["Jwt:Key"];
@@ -44,6 +55,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 
 // --- URUCHOMIENIE AUTORYZACJI ---
 app.UseAuthentication();
