@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TrailTracker.API.Data;
 using TrailTracker.API.Models;
@@ -38,6 +39,7 @@ namespace TrailTracker.API.Controllers
         }
 
         // PUT: api/TrailReports/5 (Aktualizuje zgłoszenie - np. zmiana statusu IsVerified przez Admina)
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTrailReport(int id, TrailReport report)
         {
@@ -59,6 +61,7 @@ namespace TrailTracker.API.Controllers
         }
 
         // DELETE: api/TrailReports/5 (Usuwa fałszywe zgłoszenia)
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTrailReport(int id)
         {
