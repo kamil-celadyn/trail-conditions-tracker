@@ -31,7 +31,7 @@ function App() {
     const startPosition = [49.6828, 19.0304];
 
     const fetchReports = () => {
-        fetch('https://localhost:5022/api/TrailReports')
+        fetch('http://localhost:5022/api/TrailReports')
             .then(res => res.json())
             .then(data => setReports(data))
             .catch(err => console.error("Błąd pobierania:", err));
@@ -54,7 +54,7 @@ function App() {
             description: formData.description
         };
 
-        fetch('https://localhost:7205/api/TrailReports', {
+        fetch('http://localhost:5022/api/TrailReports', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newReport)
