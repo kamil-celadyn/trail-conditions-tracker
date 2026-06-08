@@ -1,0 +1,6 @@
+@TrailTracker.API_HostAddress = http://localhost:5022
+
+GET {{TrailTracker.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
